@@ -1,0 +1,190 @@
+
+<div [ngClass]="showAside?'has-navbar-vertical-aside navbar-vertical-aside-show-lg navbar-vertical-aside-show-lg ':''" class=" footer-offset">
+
+
+  <!-- ========== HEADER ========== -->
+
+
+  <header id="header" style="background-color: #f8f8f8"
+
+          class="d-block d-md-none navbar navbar-expand-md navbar-fixed navbar-height navbar-container navbar-bordered ">
+    <div class="navbar-nav-wrap">
+      <a class="me-3" routerLink="/" aria-label="Front">
+        <img class="" [src]="areaLogo" style="height: 4rem" alt="Logo">
+      </a>
+      <!-- End Logo -->
+
+
+      <div class="navbar-nav-wrap-content-end">
+        <!-- Navbar -->
+        <ul class="navbar-nav">
+          <!--   <li class="nav-item d-none d-sm-inline-block">
+               &lt;!&ndash; Notification &ndash;&gt;
+               <yex-notification></yex-notification>
+               &lt;!&ndash; End Notification &ndash;&gt;
+             </li>-->
+
+
+          <li class="nav-item">
+
+
+
+          </li>
+
+          <li class="nav-item   d-md-none d-inline-block">
+            <!-- Notification -->
+            <app-menu [sideNavigation]="sideNavigation" [areaLogo]="areaLogo"></app-menu>
+            <!-- End Notification -->
+          </li>
+        </ul>
+        <!-- End Navbar -->
+      </div>
+    </div>
+  </header>
+
+  <!-- Navbar Vertical -->
+  <aside
+    style="background-color: #F6F6F7"
+    class="js-navbar-vertical-aside navbar  navbar-vertical-aside navbar-vertical navbar-vertical-fixed navbar-expand-xl @@if(themeAppearance.sidebarSkin === 'default'){navbar-bordered bg-white} @@if(themeAppearance.sidebarSkin === 'dark'){navbar-dark bg-dark} @@if(themeAppearance.sidebarSkin === 'light'){navbar-light bg-light}">
+    <div class="navbar-vertical-container ">
+      <div class="navbar-vertical-footer-offset">
+        <!-- Logo -->
+
+        <a class="navbar-brand" routerLink="/" aria-label="Front">
+          @if (showAside) {
+            <img class="ms-n2" src="/assets/5-asilde/logo/myNewLOgo-removebg-preview.png" style="height: 4rem" alt="Logo">
+          } @else {
+            <img class="ms-n2" src="/assets/5-asilde/logo/myNewLOgo-removebg-preview.png" style="height: 4rem" alt="Logo">
+          }
+        </a>
+
+        <button type="button" (click)="toggleAside()"
+                class="d-none d-xl-block js-navbar-vertical-aside-toggle-invoker btn btn-icon btn-white rounded-circle"
+                style="position: absolute; right: -1.5rem; top:1rem">
+          <i class="bi-arrow-bar-left navbar-toggler-short-align"
+             data-bs-template='<div class="tooltip d-none d-md-block" role="tooltip"><div class="arrow"></div><div class="tooltip-inner"></div></div>'
+             data-bs-toggle="tooltip" data-bs-placement="right" title="Collapse"></i>
+          <i class="bi-arrow-bar-right navbar-toggler-full-align"
+             data-bs-template='<div class="tooltip d-none d-md-block" role="tooltip"><div class="arrow"></div><div class="tooltip-inner"></div></div>'
+             data-bs-toggle="tooltip" data-bs-placement="right" title="Expand"></i>
+        </button>
+
+
+        <div class="navbar-vertical-content">
+          <div id="navbarVerticalMenu" class="nav nav-pills nav-vertical card-navbar-nav">
+
+
+
+            <app-side-bar-navigation-item [sideNavData]="sideNavigation"></app-side-bar-navigation-item>
+            <span class="dropdown-header mt-4">Public Website</span>
+            <small class="bi-three-dots nav-subtitle-replacer"></small>
+            <app-side-bar-navigation-item [sideNavData]="sideNavigationFooter"></app-side-bar-navigation-item>
+
+            <span class="dropdown-header mt-4">Integration</span>
+            <small class="bi-three-dots nav-subtitle-replacer"></small>
+            <div class="nav-item">
+              <a class="nav-link py-1 px-2 me-2"  target="_blank">
+             <span class="nav-icon">
+                <img src="/assets/icons/polaris_icons_new/GlobeMajor.svg" class="pe-1"/>
+                 </span>
+                <span class="nav-link-title">MAAUN Clinic.site </span>
+                @if (showAside) {
+                  <span class="nav-icon ms-auto">
+                <img src="/assets/icons/polaris_icons_new/ExternalSmallMinor.svg" class="pe-1"/>
+                 </span>
+                }
+              </a>
+            </div>
+            <div class="nav-item">
+         <!--     <a class="nav-link py-1 px-2 me-2"  target="_blank">
+ <span class="nav-icon">
+                <img src="/assets/icons/polaris_icons_new/FolderUpMajor.svg" class="pe-1"/>
+                 </span>
+
+
+                <span class="nav-link-title">Google drive  </span>
+                @if (showAside) {
+                  <span class="nav-icon ms-auto">
+                <img src="/assets/icons/polaris_icons_new/ExternalSmallMinor.svg" class="pe-1"/>
+                 </span>
+                }
+              </a>-->
+            </div>
+            <div class="nav-item">
+              <a class="nav-link py-1 px-2 me-2"  target="_blank">
+ <span class="nav-icon">
+                <img src="/assets/icons/polaris_icons_new/EmailMajor.svg" class="pe-1"/>
+                 </span>
+
+
+                <span class="nav-link-title">Email  </span>
+                @if (showAside) {
+                  <span class="nav-icon ms-auto">
+               <img src="/assets/icons/polaris_icons_new/ExternalSmallMinor.svg" class="pe-1"/>
+                 </span>
+                }
+              </a>
+            </div>
+          </div>
+          <div class="navbar-vertical-footer pe-3 ps-3">
+
+            <app-aside-user-footer></app-aside-user-footer>
+
+          </div>
+          <!-- Footer -->
+          <!-- End Footer -->
+        </div>
+
+      </div>
+    </div>
+
+  </aside>
+
+
+  <div  style="background-color: #f1f1f1; min-height: 93.8vh" class="">
+
+
+    <router-outlet></router-outlet>
+
+    <!-- Footer -->
+    <div class="footer   pb-1 pt-1" style="background-color: #f1f1f1">
+      <div class="container pb-0 pt-0">
+        <div class="row justify-content-between align-items-center">
+          <div class="col">
+            <p class="fs-6 mb-0">&copy; MAAUN Clinic <span class="d-none d-sm-inline-block">2025</span></p>
+          </div>
+          <!-- End Col -->
+
+          <div class="col-auto">
+            <div class="d-flex justify-content-end">
+              <!-- List Separator -->
+              <ul class="list-inline list-separator">
+                <!--    <li class="list-inline-item">
+                      <a class="list-separator-link" href="#">About</a>
+                    </li>
+
+                    <li class="list-inline-item">
+                      <a class="list-separator-link" href="#">License</a>
+                    </li>-->
+
+                <li class="list-inline-item">
+                  <!-- Keyboard Shortcuts Toggle -->
+                  <button class="btn btn-ghost-secondary btn btn-icon btn-ghost-secondary rounded-circle" type="button"
+                          data-bs-toggle="offcanvas" data-bs-target="#offcanvasKeyboardShortcuts"
+                          aria-controls="offcanvasKeyboardShortcuts">
+                    <i class="bi-command"></i>
+                  </button>
+                  <!-- End Keyboard Shortcuts Toggle -->
+                </li>
+              </ul>
+              <!-- End List Separator -->
+            </div>
+            <!-- End Col -->
+          </div>
+          <!-- End Row -->
+        </div>
+      </div>
+    </div>
+    <!-- End Footer -->
+  </div>
+</div>

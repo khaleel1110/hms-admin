@@ -1,0 +1,96 @@
+<div class="dropdown">
+  <button  (click)="open(contenth)" type="button" class="btn btn-ghost-secondary btn-icon rounded-circle" data-bs-toggle="dropdown"
+           aria-expanded="false" data-bs-auto-close="outside" data-bs-dropdown-animation>
+    <img src="/assets/icons/polaris_icons_new/MobileHamburgerMajor.svg" style="height: 1.82rem"/>
+  </button>
+
+</div>
+
+
+<ng-template #contenth let-offcanvas>
+  <div class="p-2 offcanvas-header">
+    <a class="" routerLink="/" aria-label="Front">
+      <img style="height: 3.8rem" class="" [src]="areaLogo" alt="Logo" >
+    </a>
+    <button type="button" class="btn-close" aria-label="Close" (click)="offcanvas.dismiss('Cross click')"></button>
+  </div>
+  <div class="p-2 pt-3 offcanvas-body">
+    <div class="navbar-vertical-container">
+      <div class="navbar-vertical-footer-offset">
+
+        <!-- End Logo -->
+
+        <!-- Navbar Vertical Toggle -->
+        <!-- <button type="button" class="js-navbar-vertical-aside-toggle-invoker navbar-aside-toggler">
+           <i class="bi-arrow-bar-left navbar-toggler-short-align" data-bs-template='<div class="tooltip d-none d-md-block" role="tooltip"><div class="arrow"></div><div class="tooltip-inner"></div></div>' data-bs-toggle="tooltip" data-bs-placement="right" title="Collapse"></i>
+           <i class="bi-arrow-bar-right navbar-toggler-full-align" data-bs-template='<div class="tooltip d-none d-md-block" role="tooltip"><div class="arrow"></div><div class="tooltip-inner"></div></div>' data-bs-toggle="tooltip" data-bs-placement="right" title="Expand"></i>
+         </button>-->
+
+        <!-- End Navbar Vertical Toggle -->
+
+        <div class="navbar-vertical-content">
+          <div id="navbarVerticalMenu" class="nav nav-pills nav-vertical card-navbar-nav">
+            <app-side-bar-navigation-item [sideNavData]="sideNavigation"></app-side-bar-navigation-item>
+            <span class="dropdown-header mt-4">Public Website</span>
+            <small class="bi-three-dots nav-subtitle-replacer"></small>
+            <app-side-bar-navigation-item [sideNavData]="sideNavigationFooter"></app-side-bar-navigation-item>
+
+            <span class="dropdown-header mt-4">Integration</span>
+            <small class="bi-three-dots nav-subtitle-replacer"></small>
+            <div class="nav-item">
+              <a class="nav-link py-1 px-2 me-2"  target="_blank">
+             <span class="nav-icon">
+                <img src="/assets/icons/polaris_icons_new/GlobeMajor.svg" class="pe-1"/>
+                 </span>
+                <span class="nav-link-title">Tibet Realty Co. site  </span>
+                @if (showAside) {
+                  <span class="nav-icon ms-auto">
+                <img src="/assets/icons/polaris_icons_new/ExternalSmallMinor.svg" class="pe-1"/>
+                 </span>
+                }
+              </a>
+            </div>
+            <div class="nav-item">
+              <a class="nav-link py-1 px-2 me-2"  target="_blank">
+ <span class="nav-icon">
+                <img src="/assets/icons/polaris_icons_new/FolderUpMajor.svg" class="pe-1"/>
+                 </span>
+
+
+                <span class="nav-link-title">Google drive  </span>
+                @if (showAside) {
+                  <span class="nav-icon ms-auto">
+                <img src="/assets/icons/polaris_icons_new/ExternalSmallMinor.svg" class="pe-1"/>
+                 </span>
+                }
+              </a>
+            </div>
+            <div class="nav-item">
+              <a class="nav-link py-1 px-2 me-2"  target="_blank">
+ <span class="nav-icon">
+                <img src="/assets/icons/polaris_icons_new/EmailMajor.svg" class="pe-1"/>
+                 </span>
+
+
+                <span class="nav-link-title">Email  </span>
+                @if (showAside) {
+                  <span class="nav-icon ms-auto">
+               <img src="/assets/icons/polaris_icons_new/ExternalSmallMinor.svg" class="pe-1"/>
+                 </span>
+                }
+              </a>
+            </div>
+          </div>
+
+          <!-- Footer -->
+          <div class="navbar-vertical-footer pe-3 ps-3">
+            <app-aside-user-footer></app-aside-user-footer>
+
+          </div>
+          <!-- End Footer -->
+        </div>
+
+      </div>
+    </div>
+  </div>
+</ng-template>
