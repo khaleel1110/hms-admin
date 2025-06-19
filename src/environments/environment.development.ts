@@ -2,7 +2,7 @@ export const environment = {
   production: false,
   useEmulator: true,
   apiUrl: 'http://localhost:3000' ,
-  firebase: {
+  firebaseApp: {
     apiKey: "AIzaSyANoKPj7Np84YGjd_2r54CrLB12cPsNDpM",
     authDomain: "hospital-management-fdb22.firebaseapp.com",
     projectId: "hospital-management-fdb22",
@@ -11,9 +11,6 @@ export const environment = {
     appId: "1:289719927575:web:087e5b8873cdb873cf6d52",
     measurementId: "G-M8D39X7ECJ"
   },
-
-  emailjsUserId: 'ZLVO8-Ff1dXXnWvZU', // Replace with your actual EmailJS User ID from https://dashboard.emailjs.com/admin/account
-  emailjsServiceId: 'service_a3qq2jm', // Verify this matches your EmailJS Service ID
-  emailjsTemplateId: 'template_54iamyd' // Verify this matches your EmailJS Template ID
+  emailAddress: 'hello@rumfastudio.com.ng',
+  placeholderImageBase: 'https://i0.wp.com/maaun.edu.ng/wp-content/uploads/2023/03/12.jpg?resize=1536%2C1024&ssl=1'
 };
-

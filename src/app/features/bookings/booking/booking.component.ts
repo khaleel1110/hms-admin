@@ -7,6 +7,7 @@ import { RouterLink, RouterLinkActive } from '@angular/router';
 import { PaginationComponent } from '../../pagination/pagination.component';
 import { NgForOf, NgIf, DatePipe } from '@angular/common';
 import { AppointmentDetails } from '../../../services/users.service';
+import {NgbDropdown, NgbDropdownAnchor, NgbDropdownItem, NgbDropdownMenu} from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-booking',
@@ -19,6 +20,10 @@ import { AppointmentDetails } from '../../../services/users.service';
     NgIf,
     NgForOf,
     DatePipe,
+    NgbDropdown,
+    NgbDropdownAnchor,
+    NgbDropdownMenu,
+    NgbDropdownItem,
   ],
   templateUrl: './booking.component.html',
   styleUrl: './booking.component.scss',
@@ -59,7 +64,7 @@ export class BookingComponent {
         booking.email.toLowerCase().includes(this.searchTerm.toLowerCase()) ||
         booking.departmentName.toLowerCase().includes(this.searchTerm.toLowerCase()) ||
         booking.bookingId.toLowerCase().includes(this.searchTerm.toLowerCase()) ||
-        booking.patientName.toLowerCase().includes(this.searchTerm.toLowerCase()) ||
+        booking.name.toLowerCase().includes(this.searchTerm.toLowerCase()) ||
         booking.doctorName.toLowerCase().includes(this.searchTerm.toLowerCase())
     );
   }

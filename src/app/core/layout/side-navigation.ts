@@ -36,6 +36,16 @@ export const SideNavigationData: SideNavigation [] = [
     children: []
 
   },
+
+  {
+    icon: 'InventoryMajor.svg',
+    title: 'Departments',
+    route: 'department',
+    isDisabled: false,
+    badge: null,
+    children: []
+
+  },
 /*  {
     icon: 'SearchMajor.svg',
     title: 'Search',
@@ -93,7 +103,7 @@ export const SideNavigationData: SideNavigation [] = [
   {
     icon: 'LegalMajor.svg',
     title: 'Reports',
-    route: '/admin/news-and-press',
+    route: '/',
     isDisabled: false,
     badge: null,
     children: []

@@ -192,7 +192,7 @@ div.code-toolbar > .toolbar button {
 div.code-toolbar > .toolbar a,
 div.code-toolbar > .toolbar button,
 div.code-toolbar > .toolbar span {
-  color: ##fff;
+  color: #fff;
   padding: .5rem 1rem;
   background-color: rgba(255, 255, 255, .1);
   border-radius: .3125em;
