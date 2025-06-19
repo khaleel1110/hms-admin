@@ -1,0 +1,99 @@
+<main id="content" role="main" class="main">
+  <div class="">
+    <div class="p-4 d-flex align-items-center justify-content-center">
+      <div class="row align-items-center justify-content-center">
+        <div class="col-sm mb-2 mb-sm-0">
+          <h1 class="page-header-title">Update Booking</h1>
+          <p class="page-header-title">Update and manage booking details</p>
+        </div>
+      </div>
+    </div>
+
+    <form [formGroup]="profileForm" class="js-step-form py-md-5">
+      <div class="row justify-content-lg-center">
+        <div class="col-lg-8">
+          <div class="row align-items-end">
+            <div class="col-sm mb-2 mb-sm-0"></div>
+            <div class="col-sm-auto m-3">
+              <div (click)="delete()" class="btn btn-danger">
+                <i class="bi-trash-fill me-1"></i> Delete Booking
+              </div>
+            </div>
+          </div>
+
+          <div id="viewBookingStepProfile" class="card card-lg active">
+            <div class="card-body">
+              <div class="row mb-4">
+                <label for="firstNameLabel" class="col-sm-3 col-form-label form-label">Full Name <i class="bi-question-circle text-body ms-1" data-bs-toggle="tooltip" data-bs-placement="top" title="Patient's full name."></i></label>
+                <div class="col-sm-9">
+                  <div class="input-group input-group-sm-vertical">
+                    <input type="text" class="form-control" name="firstName" id="firstNameLabel" placeholder="First Name" formControlName="firstName">
+                    <input type="text" class="form-control" name="lastName" id="lastNameLabel" placeholder="Last Name" formControlName="lastName">
+                  </div>
+                </div>
+              </div>
+
+              <div class="row mb-4">
+                <label for="emailLabel" class="col-sm-3 col-form-label form-label">Email</label>
+                <div class="col-sm-9">
+                  <input type="email" class="form-control" name="email" id="emailLabel" placeholder="patient@example.com" formControlName="email">
+                </div>
+              </div>
+
+              <div class="row mb-4">
+                <label for="phoneLabel" class="col-sm-3 col-form-label form-label">Phone</label>
+                <div class="col-sm-9">
+                  <input type="text" class="form-control" name="phone" id="phoneLabel" placeholder="Phone Number" formControlName="phone">
+                </div>
+              </div>
+
+      <!--        <div class="row mb-4">
+                <label for="departmentNameLabel" class="col-sm-3 col-form-label form-label">Department</label>
+                <div class="col-sm-9">
+                  <input type="text" class="form-control" name="departmentName" id="departmentNameLabel" placeholder="Department" formControlName="departmentName">
+                </div>
+              </div>-->
+
+              <div class="row mb-4">
+                <label for="doctorNameLabel" class="col-sm-3 col-form-label form-label">Doctor</label>
+                <div class="col-sm-9">
+                  <input type="text" class="form-control" name="doctorName" id="doctorNameLabel" placeholder="Doctor Name" formControlName="doctorName">
+                </div>
+              </div>
+
+              <div class="row mb-4">
+                <label for="appointmentTypeLabel" class="col-sm-3 col-form-label form-label">Appointment Type</label>
+                <div class="col-sm-9">
+                  <input type="text" class="form-control" name="appointmentType" id="appointmentTypeLabel" placeholder="Appointment Type" formControlName="appointmentType">
+                </div>
+              </div>
+
+              <div class="row mb-4">
+                <label for="appointmentDateLabel" class="col-sm-3 col-form-label form-label">Appointment Date</label>
+                <div class="col-sm-9">
+                  <input type="date" class="form-control" name="appointmentDate" id="appointmentDateLabel" placeholder="Appointment Date" formControlName="appointmentDate">
+                </div>
+              </div>
+
+              <div class="row mb-4">
+                <label class="col-sm-3 col-form-label form-label">Time</label>
+                <div class="col-sm-9">
+                  <div class="input-group input-group-sm-vertical">
+                    <input type="datetime-local" class="form-control" name="startTime" placeholder="Start Time" formControlName="startTime">
+                    <input type="datetime-local" class="form-control" name="endTime" placeholder="End Time" formControlName="endTime">
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div (click)="handleSubmit()" class="card-footer d-flex justify-content-center align-items-center">
+              <button type="button" class="btn btn-lg btn-primary">
+                Submit
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+</main>

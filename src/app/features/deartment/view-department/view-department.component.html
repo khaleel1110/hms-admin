@@ -1,0 +1,199 @@
+<main id="content" role="main" class="main" style="min-height: 88vh">
+  <div class="content container px-6">
+    <div class="p-4 d-flex align-items-center justify-content-center">
+      <div class="row align-items-center justify-content-center text-center">
+        <div class="col-sm mb-2 mb-sm-0">
+          <h1 class="page-header-title">Update Department</h1>
+          <p class="page-header-text">Update and manage department details</p>
+        </div>
+      </div>
+    </div>
+
+    <div *ngIf="isLoading" class="text-center py-5">
+      <div class="spinner-border text-primary" role="status">
+        <span class="visually-hidden">Loading...</span>
+      </div>
+    </div>
+
+    <form [formGroup]="departmentForm" (ngSubmit)="handleSubmit()" class="py-md-5" *ngIf="!isLoading">
+      <div class="row justify-content-lg-center">
+        <div class="col-lg-8">
+          <div class="row align-items-end mb-3">
+            <div class="col-sm mb-2 mb-sm-0"></div>
+            <div class="col-sm-auto">
+              <button type="button" class="btn btn-danger">
+                <i class="bi-trash-fill me-1"></i> Delete Department
+              </button>
+            </div>
+          </div>
+
+          <div id="editDepartmentStepProfile" class="card card-lg active">
+            <div class="card-body">
+              <!-- Department Name -->
+              <div class="row mb-4">
+                <label for="nameLabel" class="col-sm-3 col-form-label form-label">Department Name <i class="bi-question-circle text-body ms-1" data-bs-toggle="tooltip" data-bs-placement="top" title="Name of the department."></i></label>
+                <div class="col-sm-9">
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="nameLabel"
+                    placeholder="e.g., Cardiology"
+                    formControlName="name"
+                    [class.is-invalid]="departmentForm.get('name')?.touched && departmentForm.get('name')?.invalid"
+                  />
+                  <div *ngIf="departmentForm.get('name')?.touched && departmentForm.get('name')?.invalid" class="invalid-feedback">
+                    <div *ngIf="departmentForm.get('name')?.errors?.['required']">Department name is required.</div>
+                    <div *ngIf="departmentForm.get('name')?.errors?.['minlength']">Name must be at least 3 characters.</div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Description -->
+              <div class="row mb-4">
+                <label for="descriptionLabel" class="col-sm-3 col-form-label form-label">Description</label>
+                <div class="col-sm-9">
+                  <textarea
+                    class="form-control"
+                    id="descriptionLabel"
+                    placeholder="e.g., Department specializing in heart-related treatments"
+                    formControlName="description"
+                    rows="4"
+                    [class.is-invalid]="departmentForm.get('description')?.touched && departmentForm.get('description')?.invalid"
+                  ></textarea>
+                  <div *ngIf="departmentForm.get('description')?.touched && departmentForm.get('description')?.invalid" class="invalid-feedback">
+                    <div *ngIf="departmentForm.get('description')?.errors?.['required']">Description is required.</div>
+                    <div *ngIf="departmentForm.get('description')?.errors?.['minlength']">Description must be at least 10 characters.</div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Photo Upload -->
+              <div class="row mb-4">
+                <label for="departmentPhoto" class="col-sm-3 col-form-label form-label">Department Photo</label>
+                <div class="col-sm-9">
+                  <div class="input-group">
+                    <input
+                      type="file"
+                      class="form-control"
+                      id="departmentPhoto"
+                      (change)="onPhotoSelected($event)"
+                      accept="image/png,image/jpeg"
+                    />
+                    <label class="input-group-text" for="departmentPhoto">Browse</label>
+                  </div>
+                  <small class="form-text text-muted">Select a PNG or JPG image (max 5MB). Leave blank to keep current photo.</small>
+                  <div *ngIf="departmentForm.get('photoUrl')?.value" class="mt-2">
+                    <img [src]="departmentForm.get('photoUrl')?.value" alt="Department Image" class="img-fluid rounded" style="max-height: 200px;">
+                  </div>
+                </div>
+              </div>
+
+              <!-- Doctors -->
+              <div formArrayName="doctors" class="mb-4">
+                <h3 class="mb-3">Doctors</h3>
+                <div *ngFor="let doctor of doctors.controls; let i = index" [formGroupName]="i" class="mb-3 border p-3 rounded bg-light">
+                  <div class="row">
+                    <label [for]="'doctor-name-' + i" class="col-sm-3 col-form-label form-label">Doctor Name</label>
+                    <div class="col-sm-9">
+                      <input
+                        [id]="'doctor-name-' + i"
+                        type="text"
+                        class="form-control"
+                        formControlName="name"
+                        placeholder="e.g., Dr. John Smith"
+                        [class.is-invalid]="doctor.get('name')?.touched && doctor.get('name')?.invalid"
+                      />
+                      <div *ngIf="doctor.get('name')?.touched && doctor.get('name')?.invalid" class="invalid-feedback">
+                        <div *ngIf="doctor.get('name')?.errors?.['required']">Doctor name is required.</div>
+                        <div *ngIf="doctor.get('name')?.errors?.['minlength']">Name must be at least 3 characters.</div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row mt-2">
+                    <label [for]="'doctor-specialty-' + i" class="col-sm-3 col-form-label form-label">Specialty</label>
+                    <div class="col-sm-9">
+                      <input
+                        [id]="'doctor-specialty-' + i"
+                        type="text"
+                        class="form-control"
+                        formControlName="specialty"
+                        placeholder="e.g., Cardiologist"
+                        [class.is-invalid]="doctor.get('specialty')?.touched && doctor.get('specialty')?.invalid"
+                      />
+                      <div *ngIf="doctor.get('specialty')?.touched && doctor.get('specialty')?.invalid" class="invalid-feedback">
+                        <div *ngIf="doctor.get('specialty')?.errors?.['required']">Specialty is required.</div>
+                        <div *ngIf="doctor.get('specialty')?.errors?.['minlength']">Specialty must be at least 3 characters.</div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row mt-2">
+                    <label [for]="'doctor-description-' + i" class="col-sm-3 col-form-label form-label">Description</label>
+                    <div class="col-sm-9">
+                      <textarea
+                        [id]="'doctor-description-' + i"
+                        class="form-control"
+                        formControlName="description"
+                        rows="3"
+                        placeholder="e.g., Expert in heart surgeries"
+                        [class.is-invalid]="doctor.get('description')?.touched && doctor.get('description')?.invalid"
+                      ></textarea>
+                      <div *ngIf="doctor.get('description')?.touched && doctor.get('description')?.invalid" class="invalid-feedback">
+                        <div *ngIf="doctor.get('description')?.errors?.['required']">Description is required.</div>
+                        <div *ngIf="doctor.get('description')?.errors?.['minlength']">Description must be at least 10 characters.</div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row mt-2">
+                    <label [for]="'doctor-photo-' + i" class="col-sm-3 col-form-label form-label">Doctor Photo</label>
+                    <div class="col-sm-9">
+                      <div class="input-group">
+                        <input
+                          [id]="'doctor-photo-' + i"
+                          type="file"
+                          class="form-control"
+                          (change)="onDoctorPhotoSelected($event, i)"
+                          accept="image/png,image/jpeg"
+                        />
+                        <label class="input-group-text" [for]="'doctor-photo-' + i">Browse</label>
+                      </div>
+                      <small class="form-text text-muted">Select a PNG or JPG image (max 5MB). Leave blank to keep current photo.</small>
+                      <div *ngIf="doctor.get('photoUrl')?.value" class="mt-2">
+                        <img [src]="doctor.get('photoUrl')?.value" alt="Doctor Image" class="img-fluid rounded" style="max-height: 100px;">
+                      </div>
+                    </div>
+                  </div>
+                  <button
+                    type="button"
+                    class="btn btn-sm btn-outline-danger mt-2"
+                    (click)="removeDoctor(i)"
+                  >
+                    Remove Doctor
+                  </button>
+                </div>
+                <button type="button" class="btn btn-sm btn-outline-primary" (click)="addDoctor()">Add Doctor</button>
+              </div>
+            </div>
+
+            <div class="card-footer d-flex justify-content-center align-items-center gap-2">
+              <button
+                type="button"
+                class="btn btn-lg btn-outline-secondary"
+                (click)="cancel()"
+              >
+                Cancel
+              </button>
+              <button
+                type="submit"
+                class="btn btn-lg btn-primary"
+                [disabled]="isSubmitting || !isFormValid()"
+              >
+                <span *ngIf="isSubmitting" class="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>
+                {{ isSubmitting ? 'Updating...' : 'Submit' }}
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+</main>

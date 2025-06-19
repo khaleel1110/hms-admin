@@ -1,0 +1,120 @@
+<!-- department-list.component.html -->
+<main id="content" role="main" class="main" style="min-height: 88vh">
+  <div class="content container px-6">
+  <div class="row justify-content-between align-items-center mb-4">
+    <div class="col-md-6">
+      <h1 class="page-header-title">Departments</h1>
+      <p class="page-header-text">Manage your medical departments and doctors</p>
+    </div>
+    <div class="col-md-6 d-flex justify-content-end">
+      <button class="btn btn-primary" (click)="navigateToAddDepartment()">
+        <i class="bi bi-plus-circle me-1"></i> Add New Department
+      </button>
+    </div>
+  </div>
+
+  <div class="card card-lg mb-4">
+    <div class="card-body">
+      <div class="input-group">
+        <input
+          type="text"
+          class="form-control"
+          placeholder="Search departments, doctors, specialties..."
+          [(ngModel)]="searchTermInput"
+          (keyup.enter)="onSearch()"
+        />
+        <button class="btn btn-outline-secondary" type="button" (click)="onSearch()">
+          <i class="bi bi-search"></i> Search
+        </button>
+      </div>
+    </div>
+  </div>
+
+  @if (loading) {
+    <div class="text-center py-5">
+      <div class="spinner-border text-primary" role="status">
+        <span class="visually-hidden">Loading...</span>
+      </div>
+      <p class="mt-2">Loading departments...</p>
+    </div>
+  } @else {
+    @if (filteredDepartments().length === 0) {
+      <div class="card card-lg">
+        <div class="card-body text-center py-5">
+          <i class="bi bi-building-x display-4 text-muted mb-3"></i>
+          <h3 class="mb-3">No departments found</h3>
+          <p class="text-muted mb-4">
+            @if (searchTerm()) {
+              No departments match your search criteria
+            } @else {
+              You haven't added any departments yet
+            }
+          </p>
+          <button class="btn btn-primary" (click)="navigateToAddDepartment()">
+            <i class="bi bi-plus-circle me-1"></i> Add Department
+          </button>
+        </div>
+      </div>
+    } @else {
+      <div class="row">
+        @for (department of paginatedDepartments(); track department.id) {
+          <div class="col-md-6 mb-4">
+            <div class="card h-100">
+              <div class="card-img-top bg-light" style="height: 200px; overflow: hidden;">
+                @if (department.photoUrl) {
+                  <img
+                    [src]="department.photoUrl"
+                    alt="Department photo"
+                    class="img-fluid w-100 h-100 object-fit-cover"
+                    style="object-fit: cover;"
+                  />
+                } @else {
+                  <div class="d-flex align-items-center justify-content-center h-100">
+                    <i class="bi bi-building display-4 text-muted"></i>
+                  </div>
+                }
+              </div>
+              <div class="card-body">
+                <h3 class="card-title">{{ department.name }}</h3>
+                <p class="card-text text-muted">{{ department.description || 'No description available' }}</p>
+
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                  <span class="badge bg-primary rounded-pill">
+                    <i class="bi bi-people me-1"></i>
+                    {{ doctorsCountByDepartment()[department.id] || 0 }} doctors
+                  </span>
+                  <span class="text-muted small">
+                    <i class="bi bi-calendar me-1"></i>
+                    {{ department.createdAt | date }}
+                  </span>
+                </div>
+
+                <div class="d-flex justify-content-between">
+                  <button
+                    class="btn btn-sm btn-outline-primary"
+                    (click)="navigateToEditDepartment(department.id)"
+                  >
+                    <i class="bi bi-pencil me-1"></i> Edit
+                  </button>
+                  <button
+                    class="btn btn-sm btn-outline-danger"
+                    (click)="deleteDepartment(department.id)"
+                  >
+                    <i class="bi bi-trash me-1"></i> Delete
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        }
+      </div>
+
+      <app-pagination
+        [currentPage]="currentPage()"
+        [itemsPerPage]="itemsPerPage"
+        [totalItems]="filteredDepartments().length"
+        (pageChange)="onPageChange($event)"
+      ></app-pagination>
+    }
+  }
+</div>

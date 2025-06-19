@@ -1,0 +1,32 @@
+/* Reusing the same styles as edit-staff.component.scss */
+main {
+  padding: 20px;
+}
+
+.card {
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.card-body {
+  padding: 2rem;
+}
+
+.form-control {
+  border-radius: 4px;
+}
+
+.btn-primary {
+  background-color: #007bff;
+  border-color: #007bff;
+}
+
+.btn-danger {
+  background-color: #dc3545;
+  border-color: #dc3545;
+}
+
+.input-group-sm-vertical {
+  display: flex;
+  gap: 1rem;
+}
