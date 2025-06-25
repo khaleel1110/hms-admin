@@ -200,6 +200,17 @@
       </div>
 
     </div>-->
+    <div class="container">
+      <div class="container">
+        <app-dashboard-list-item
+          listTitle="Today's Patient Appointments"
+          listDescription="Patients scheduled for today’s appointments."
+          [todayPatients]="todayPatients ?? []"
+          [isLoading]="isLoading"
+        ></app-dashboard-list-item>
+      </div>
+
+    </div>
 
 
   </div>

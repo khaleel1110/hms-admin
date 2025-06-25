@@ -8,6 +8,8 @@ import { Auth, signInAnonymously, onAuthStateChanged } from '@angular/fire/auth'
 import { Observable, from, BehaviorSubject, combineLatest, of } from 'rxjs';
 import { map, switchMap, take, tap, catchError } from 'rxjs/operators';
 import { environment } from '../../environments/environment';
+import { startOfDay, endOfDay } from 'date-fns';
+import { Timestamp } from 'firebase/firestore';
 
 export interface Patient {
   id: string;
@@ -68,7 +70,6 @@ export class BookingService {
   );
 
   constructor() {
-    // Sign in anonymously for emulator testing
     signInAnonymously(this.auth).catch(error => {
       console.error('Anonymous auth error:', error);
     });
@@ -115,6 +116,7 @@ export class BookingService {
       });
     });
   }
+
   addPatient(patient: Omit<Patient, 'id' | 'createdAt'>): Observable<Patient> {
     return new Observable<Patient>(observer => {
       onAuthStateChanged(this.auth, user => {
@@ -219,6 +221,59 @@ export class BookingService {
     });
   }
 
+  getPatientsForToday(doctorName?: string): Observable<Patient[]> {
+    return new Observable<Patient[]>(observer => {
+      onAuthStateChanged(this.auth, user => {
+        if (user) {
+          const today = new Date();
+          const start = startOfDay(today);
+          const end = endOfDay(today);
+
+          const patientsCollection = collection(this.firestore, 'patients');
+          let q = query(
+            patientsCollection,
+            where('startTime', '>=', start),
+            where('startTime', '<=', end)
+          );
+
+          if (doctorName) {
+            q = query(q, where('doctorName', '==', doctorName));
+          }
+
+          from(getDocs(q)).pipe(
+            map(snapshot =>
+              snapshot.docs
+                .map(doc => ({ id: doc.id, ...doc.data() } as Patient))
+                .map(patient => ({
+                  ...patient,
+                  startTime: patient.startTime instanceof Timestamp
+                    ? patient.startTime.toDate()
+                    : patient.startTime || new Date(),
+                  endTime: patient.endTime instanceof Timestamp
+                    ? patient.endTime.toDate()
+                    : patient.endTime || new Date(),
+                  createdAt: patient.createdAt instanceof Timestamp
+                    ? patient.createdAt.toDate()
+                    : patient.createdAt || new Date(),
+                }))
+                .filter(patient => patient.startTime !== null) // Exclude patients with null startTime
+                .sort((a, b) => {
+                  const timeA = a.startTime?.getTime() || 0;
+                  const timeB = b.startTime?.getTime() || 0;
+                  return timeB - timeA; // Latest time first
+                })
+            ),
+            catchError(err => {
+              console.error('Error fetching today’s patients:', err);
+              return of([]);
+            })
+          ).subscribe(patients => observer.next(patients));
+        } else {
+          observer.error(new Error('User not authenticated'));
+        }
+      });
+    });
+  }
 
   private generateId(prefix: string): string {
     return `${prefix}-${Date.now()}-${Math.floor(Math.random() * 10000)}`;
