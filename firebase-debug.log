@@ -435,3 +435,168 @@ Issues? Report them at https://github.com/firebase/firebase-tools/issues and att
 [debug] [2025-06-27T15:25:20.502Z] defaultcredentials: writing to file C:\Users\KHALIL\AppData\Roaming\firebase\kabiribrahim340_gmail_com_application_default_credentials.json
 [debug] [2025-06-27T15:25:20.503Z] Setting GAC to C:\Users\KHALIL\AppData\Roaming\firebase\kabiribrahim340_gmail_com_application_default_credentials.json {"metadata":{"emulator":{"name":"functions"},"message":"Setting GAC to C:\\Users\\KHALIL\\AppData\\Roaming\\firebase\\kabiribrahim340_gmail_com_application_default_credentials.json"}}
 [info] +  functions: Loaded functions definitions from source: sample_function.onExpenseWritten, pdf_function.generatePatientPDF, excel_helper.generatePatientExcel. {"metadata":{"emulator":{"name":"functions"},"message":"Loaded functions definitions from source: sample_function.onExpenseWritten, pdf_function.generatePatientPDF, excel_helper.generatePatientExcel."}}
+[debug] [2025-06-27T15:27:29.666Z] File C:\Users\KHALIL\Desktop\learnning projects\hospital-management system\hms-functions\storage.rules changed, reloading triggers {"metadata":{"emulator":{"name":"functions"},"message":"File C:\\Users\\KHALIL\\Desktop\\learnning projects\\hospital-management system\\hms-functions\\storage.rules changed, reloading triggers"}}
+[debug] [2025-06-27T15:27:30.670Z] Validating nodejs source
+[debug] [2025-06-27T15:27:33.123Z] > [functions] package.json contents: {
+  "name": "functions",
+  "scripts": {
+    "build": "tsc",
+    "build:watch": "tsc --watch",
+    "build-functions": "cd functions && npm run build && cd .. &&  firebase emulators:start --inspect-functions",
+    "serve": "npm run build && firebase emulators:start --only functions",
+    "shell": "npm run build && firebase functions:shell",
+    "start": "npm run shell",
+    "deploy": "firebase deploy --only functions",
+    "logs": "firebase functions:log"
+  },
+  "engines": {
+    "node": "22"
+  },
+  "main": "lib/index.js",
+  "dependencies": {
+    "@google-cloud/firestore": "^7.11.0",
+    "@sendgrid/mail": "^8.1.5",
+    "@google-cloud/pubsub": "^5.1.0",
+    "firebase-admin": "^13.1.0",
+    "firebase-functions": "^6.3.2",
+    "nodemailer": "^7.0.3",
+    "puppeteer": "^24.4.0",
+    "xlsx": "^0.18.5",
+    "@types/nodemailer": "^6.4.17"
+  },
+  "devDependencies": {
+    "typescript": "^4.9.0",
+    "@angular/fire": "^19.0.0",
+    "@google-cloud/firestore": "^7.11.0",
+    "@sendgrid/mail": "^8.1.5",
+    "mime-types": "^3.0.1",
+    "nodemailer": "^6.10.1"
+  },
+  "private": true
+}
+[debug] [2025-06-27T15:27:33.123Z] Building nodejs source
+[debug] [2025-06-27T15:27:33.124Z] Failed to find version of module node: reached end of search path C:\Users\KHALIL\Desktop\learnning projects\hospital-management system\hms-functions\node_modules
+[info] +  functions: Using node@22 from host. 
+[debug] [2025-06-27T15:27:33.125Z] Could not find functions.yaml. Must use http discovery
+[debug] [2025-06-27T15:27:33.135Z] Found firebase-functions binary at 'C:\Users\KHALIL\Desktop\learnning projects\hospital-management system\hms-functions\node_modules\.bin\firebase-functions'
+[info] Serving at port 8311
+
+[error] {"severity":"WARNING","message":"Setting onInit callback more than once. Only the most recent callback will be called"}
+
+[error] (node:2476) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+(Use `node --trace-deprecation ...` to show where the warning was created)
+
+[debug] [2025-06-27T15:27:34.749Z] Got response from /__/functions.yaml {"endpoints":{"sample_function-onExpenseWritten":{"availableMemoryMb":null,"timeoutSeconds":null,"minInstances":null,"maxInstances":null,"ingressSettings":null,"concurrency":null,"serviceAccountEmail":null,"vpc":null,"platform":"gcfv2","labels":{},"eventTrigger":{"eventType":"google.cloud.firestore.document.v1.written","eventFilters":{"database":"(default)","namespace":"(default)"},"eventFilterPathPatterns":{"document":"student/{studentId}"},"retry":false},"entryPoint":"sample_function.onExpenseWritten"},"pdf_function-generatePatientPDF":{"availableMemoryMb":null,"timeoutSeconds":null,"minInstances":null,"maxInstances":null,"ingressSettings":null,"concurrency":null,"serviceAccountEmail":null,"vpc":null,"platform":"gcfv2","labels":{},"httpsTrigger":{},"entryPoint":"pdf_function.generatePatientPDF"},"excel_helper-generatePatientExcel":{"availableMemoryMb":null,"timeoutSeconds":null,"minInstances":null,"maxInstances":null,"ingressSettings":null,"concurrency":null,"serviceAccountEmail":null,"vpc":null,"platform":"gcfv2","labels":{},"httpsTrigger":{},"entryPoint":"excel_helper.generatePatientExcel"}},"specVersion":"v1alpha1","requiredAPIs":[],"extensions":{}}
+[debug] [2025-06-27T15:27:39.802Z] defaultcredentials: writing to file C:\Users\KHALIL\AppData\Roaming\firebase\kabiribrahim340_gmail_com_application_default_credentials.json
+[debug] [2025-06-27T15:27:39.803Z] Setting GAC to C:\Users\KHALIL\AppData\Roaming\firebase\kabiribrahim340_gmail_com_application_default_credentials.json {"metadata":{"emulator":{"name":"functions"},"message":"Setting GAC to C:\\Users\\KHALIL\\AppData\\Roaming\\firebase\\kabiribrahim340_gmail_com_application_default_credentials.json"}}
+[info] +  functions: Loaded functions definitions from source: sample_function.onExpenseWritten, pdf_function.generatePatientPDF, excel_helper.generatePatientExcel. {"metadata":{"emulator":{"name":"functions"},"message":"Loaded functions definitions from source: sample_function.onExpenseWritten, pdf_function.generatePatientPDF, excel_helper.generatePatientExcel."}}
+[debug] [2025-06-27T15:28:24.131Z] File C:\Users\KHALIL\Desktop\learnning projects\hospital-management system\hms-functions\firestore.rules changed, reloading triggers {"metadata":{"emulator":{"name":"functions"},"message":"File C:\\Users\\KHALIL\\Desktop\\learnning projects\\hospital-management system\\hms-functions\\firestore.rules changed, reloading triggers"}}
+[debug] [2025-06-27T15:28:25.133Z] Validating nodejs source
+[debug] [2025-06-27T15:28:26.838Z] > [functions] package.json contents: {
+  "name": "functions",
+  "scripts": {
+    "build": "tsc",
+    "build:watch": "tsc --watch",
+    "build-functions": "cd functions && npm run build && cd .. &&  firebase emulators:start --inspect-functions",
+    "serve": "npm run build && firebase emulators:start --only functions",
+    "shell": "npm run build && firebase functions:shell",
+    "start": "npm run shell",
+    "deploy": "firebase deploy --only functions",
+    "logs": "firebase functions:log"
+  },
+  "engines": {
+    "node": "22"
+  },
+  "main": "lib/index.js",
+  "dependencies": {
+    "@google-cloud/firestore": "^7.11.0",
+    "@sendgrid/mail": "^8.1.5",
+    "@google-cloud/pubsub": "^5.1.0",
+    "firebase-admin": "^13.1.0",
+    "firebase-functions": "^6.3.2",
+    "nodemailer": "^7.0.3",
+    "puppeteer": "^24.4.0",
+    "xlsx": "^0.18.5",
+    "@types/nodemailer": "^6.4.17"
+  },
+  "devDependencies": {
+    "typescript": "^4.9.0",
+    "@angular/fire": "^19.0.0",
+    "@google-cloud/firestore": "^7.11.0",
+    "@sendgrid/mail": "^8.1.5",
+    "mime-types": "^3.0.1",
+    "nodemailer": "^6.10.1"
+  },
+  "private": true
+}
+[debug] [2025-06-27T15:28:26.838Z] Building nodejs source
+[debug] [2025-06-27T15:28:26.838Z] Failed to find version of module node: reached end of search path C:\Users\KHALIL\Desktop\learnning projects\hospital-management system\hms-functions\node_modules
+[info] +  functions: Using node@22 from host. 
+[debug] [2025-06-27T15:28:26.839Z] Could not find functions.yaml. Must use http discovery
+[debug] [2025-06-27T15:28:26.845Z] Found firebase-functions binary at 'C:\Users\KHALIL\Desktop\learnning projects\hospital-management system\hms-functions\node_modules\.bin\firebase-functions'
+[info] Serving at port 8220
+
+[error] {"severity":"WARNING","message":"Setting onInit callback more than once. Only the most recent callback will be called"}
+
+[error] (node:12996) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+(Use `node --trace-deprecation ...` to show where the warning was created)
+
+[debug] [2025-06-27T15:28:33.585Z] Got response from /__/functions.yaml {"endpoints":{"sample_function-onExpenseWritten":{"availableMemoryMb":null,"timeoutSeconds":null,"minInstances":null,"maxInstances":null,"ingressSettings":null,"concurrency":null,"serviceAccountEmail":null,"vpc":null,"platform":"gcfv2","labels":{},"eventTrigger":{"eventType":"google.cloud.firestore.document.v1.written","eventFilters":{"database":"(default)","namespace":"(default)"},"eventFilterPathPatterns":{"document":"student/{studentId}"},"retry":false},"entryPoint":"sample_function.onExpenseWritten"},"pdf_function-generatePatientPDF":{"availableMemoryMb":null,"timeoutSeconds":null,"minInstances":null,"maxInstances":null,"ingressSettings":null,"concurrency":null,"serviceAccountEmail":null,"vpc":null,"platform":"gcfv2","labels":{},"httpsTrigger":{},"entryPoint":"pdf_function.generatePatientPDF"},"excel_helper-generatePatientExcel":{"availableMemoryMb":null,"timeoutSeconds":null,"minInstances":null,"maxInstances":null,"ingressSettings":null,"concurrency":null,"serviceAccountEmail":null,"vpc":null,"platform":"gcfv2","labels":{},"httpsTrigger":{},"entryPoint":"excel_helper.generatePatientExcel"}},"specVersion":"v1alpha1","requiredAPIs":[],"extensions":{}}
+[debug] [2025-06-27T15:28:38.655Z] defaultcredentials: writing to file C:\Users\KHALIL\AppData\Roaming\firebase\kabiribrahim340_gmail_com_application_default_credentials.json
+[debug] [2025-06-27T15:28:38.657Z] Setting GAC to C:\Users\KHALIL\AppData\Roaming\firebase\kabiribrahim340_gmail_com_application_default_credentials.json {"metadata":{"emulator":{"name":"functions"},"message":"Setting GAC to C:\\Users\\KHALIL\\AppData\\Roaming\\firebase\\kabiribrahim340_gmail_com_application_default_credentials.json"}}
+[info] +  functions: Loaded functions definitions from source: sample_function.onExpenseWritten, pdf_function.generatePatientPDF, excel_helper.generatePatientExcel. {"metadata":{"emulator":{"name":"functions"},"message":"Loaded functions definitions from source: sample_function.onExpenseWritten, pdf_function.generatePatientPDF, excel_helper.generatePatientExcel."}}
+[debug] [2025-06-27T15:28:43.449Z] File C:\Users\KHALIL\Desktop\learnning projects\hospital-management system\hms-functions\src\exporting\studentPdf.ts changed, reloading triggers {"metadata":{"emulator":{"name":"functions"},"message":"File C:\\Users\\KHALIL\\Desktop\\learnning projects\\hospital-management system\\hms-functions\\src\\exporting\\studentPdf.ts changed, reloading triggers"}}
+[debug] [2025-06-27T15:28:44.455Z] Validating nodejs source
+[debug] [2025-06-27T15:28:46.297Z] > [functions] package.json contents: {
+  "name": "functions",
+  "scripts": {
+    "build": "tsc",
+    "build:watch": "tsc --watch",
+    "build-functions": "cd functions && npm run build && cd .. &&  firebase emulators:start --inspect-functions",
+    "serve": "npm run build && firebase emulators:start --only functions",
+    "shell": "npm run build && firebase functions:shell",
+    "start": "npm run shell",
+    "deploy": "firebase deploy --only functions",
+    "logs": "firebase functions:log"
+  },
+  "engines": {
+    "node": "22"
+  },
+  "main": "lib/index.js",
+  "dependencies": {
+    "@google-cloud/firestore": "^7.11.0",
+    "@sendgrid/mail": "^8.1.5",
+    "@google-cloud/pubsub": "^5.1.0",
+    "firebase-admin": "^13.1.0",
+    "firebase-functions": "^6.3.2",
+    "nodemailer": "^7.0.3",
+    "puppeteer": "^24.4.0",
+    "xlsx": "^0.18.5",
+    "@types/nodemailer": "^6.4.17"
+  },
+  "devDependencies": {
+    "typescript": "^4.9.0",
+    "@angular/fire": "^19.0.0",
+    "@google-cloud/firestore": "^7.11.0",
+    "@sendgrid/mail": "^8.1.5",
+    "mime-types": "^3.0.1",
+    "nodemailer": "^6.10.1"
+  },
+  "private": true
+}
+[debug] [2025-06-27T15:28:46.297Z] Building nodejs source
+[debug] [2025-06-27T15:28:46.298Z] Failed to find version of module node: reached end of search path C:\Users\KHALIL\Desktop\learnning projects\hospital-management system\hms-functions\node_modules
+[info] +  functions: Using node@22 from host. 
+[debug] [2025-06-27T15:28:46.299Z] Could not find functions.yaml. Must use http discovery
+[debug] [2025-06-27T15:28:46.305Z] Found firebase-functions binary at 'C:\Users\KHALIL\Desktop\learnning projects\hospital-management system\hms-functions\node_modules\.bin\firebase-functions'
+[info] Serving at port 8630
+
+[error] {"severity":"WARNING","message":"Setting onInit callback more than once. Only the most recent callback will be called"}
+
+[error] (node:24476) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+(Use `node --trace-deprecation ...` to show where the warning was created)
+
+[debug] [2025-06-27T15:28:47.612Z] Got response from /__/functions.yaml {"endpoints":{"sample_function-onExpenseWritten":{"availableMemoryMb":null,"timeoutSeconds":null,"minInstances":null,"maxInstances":null,"ingressSettings":null,"concurrency":null,"serviceAccountEmail":null,"vpc":null,"platform":"gcfv2","labels":{},"eventTrigger":{"eventType":"google.cloud.firestore.document.v1.written","eventFilters":{"database":"(default)","namespace":"(default)"},"eventFilterPathPatterns":{"document":"student/{studentId}"},"retry":false},"entryPoint":"sample_function.onExpenseWritten"},"pdf_function-generatePatientPDF":{"availableMemoryMb":null,"timeoutSeconds":null,"minInstances":null,"maxInstances":null,"ingressSettings":null,"concurrency":null,"serviceAccountEmail":null,"vpc":null,"platform":"gcfv2","labels":{},"httpsTrigger":{},"entryPoint":"pdf_function.generatePatientPDF"},"excel_helper-generatePatientExcel":{"availableMemoryMb":null,"timeoutSeconds":null,"minInstances":null,"maxInstances":null,"ingressSettings":null,"concurrency":null,"serviceAccountEmail":null,"vpc":null,"platform":"gcfv2","labels":{},"httpsTrigger":{},"entryPoint":"excel_helper.generatePatientExcel"}},"specVersion":"v1alpha1","requiredAPIs":[],"extensions":{}}
+[debug] [2025-06-27T15:28:52.707Z] defaultcredentials: writing to file C:\Users\KHALIL\AppData\Roaming\firebase\kabiribrahim340_gmail_com_application_default_credentials.json
+[debug] [2025-06-27T15:28:52.708Z] Setting GAC to C:\Users\KHALIL\AppData\Roaming\firebase\kabiribrahim340_gmail_com_application_default_credentials.json {"metadata":{"emulator":{"name":"functions"},"message":"Setting GAC to C:\\Users\\KHALIL\\AppData\\Roaming\\firebase\\kabiribrahim340_gmail_com_application_default_credentials.json"}}
+[info] +  functions: Loaded functions definitions from source: sample_function.onExpenseWritten, pdf_function.generatePatientPDF, excel_helper.generatePatientExcel. {"metadata":{"emulator":{"name":"functions"},"message":"Loaded functions definitions from source: sample_function.onExpenseWritten, pdf_function.generatePatientPDF, excel_helper.generatePatientExcel."}}
