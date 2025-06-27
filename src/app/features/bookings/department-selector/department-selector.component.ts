@@ -20,7 +20,7 @@ import { FormsModule } from '@angular/forms';
   ],
   template: `
     <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-      <mat-form-field appearance="outline" class="w-full">
+      <mat-form-field appearance="outline" class="w-full mx-5">
         <mat-label>Department</mat-label>
         <mat-select
           [(ngModel)]="selectedDepartmentId"

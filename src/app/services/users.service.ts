@@ -5,7 +5,7 @@ import { Timestamp } from 'firebase/firestore';
 
 export interface AppointmentDetails {
   id: string;
-  name: string;
+  patientName: string;
   email: string;
   phone: string;
   departmentName: string;
@@ -33,13 +33,14 @@ export class UsersService implements OnDestroy {
   users$ = this.usersSubject.asObservable();
 
   constructor() {
-    const usersCollection = collection(this.firestore, 'patients');
+    const bookingsCollection = collection(this.firestore, 'bookings');
 
-    this.unsub = collectionData(usersCollection, { idField: 'id' })
+    this.unsub = collectionData(bookingsCollection, { idField: 'id' })
       .pipe(
         map((data: any[]) =>
           data.map((item) => ({
             ...item,
+            patientName: item.patientName || 'N/A',
             startTime: item.startTime instanceof Timestamp ? item.startTime.toDate() : new Date(item.startTime),
             endTime: item.endTime instanceof Timestamp ? item.endTime.toDate() : new Date(item.endTime),
             createdAt: item.createdAt instanceof Timestamp ? item.createdAt.toDate() : new Date(item.createdAt),
@@ -56,6 +57,10 @@ export class UsersService implements OnDestroy {
           this.isLoadingSubject.next(false);
         },
       });
+  }
+
+  setLoading(loading: boolean) {
+    this.isLoadingSubject.next(loading);
   }
 
   getStaffCount(): Observable<number> {

@@ -88,195 +88,98 @@
               ngbDropdownMenu
               aria-labelledby="usersExportDropdown"
             >
-              <span class="dropdown-header">Options</span>
-              <a id="export-copy" class="dropdown-item" ngbDropdownItem href="javascript:;">
-                <img
-                  class="avatar avatar-xss avatar-4x3 me-2"
-                  src="/assets/svg/illustrations/copy-icon.svg"
-                  alt="Image Description"
-                />
-                Copy
-              </a>
-              <a id="export-print" class="dropdown-item" ngbDropdownItem href="javascript:;">
-                <img
-                  class="avatar avatar-xss avatar-4x3 me-2"
-                  src="/assets/svg/illustrations/print-icon.svg"
-                  alt="Image Description"
-                />
-                Print
-              </a>
               <div class="dropdown-divider"></div>
               <span class="dropdown-header">Download options</span>
-              <a id="export-excel" class="dropdown-item" ngbDropdownItem href="javascript:;">
+
+              <a
+                (click)="onGenerateExcel()"
+                [class.disabled]="isLoading()"
+                id="export-excel"
+                class="dropdown-item"
+                ngbDropdownItem
+              >
                 <img
                   class="avatar avatar-xss avatar-4x3 me-2"
                   src="/assets/svg/brands/excel-icon.svg"
-                  alt="Image Description"
+                  alt="Excel Icon"
                 />
                 Excel
               </a>
-              <a id="export-csv" class="dropdown-item" ngbDropdownItem href="javascript:;">
-                <img
-                  class="avatar avatar-xss avatar-4x3 me-2"
-                  src="/assets/svg/components/placeholder-csv-format.svg"
-                  alt="Image Description"
-                />
-                .CSV
-              </a>
-              <a id="export-pdf" class="dropdown-item" ngbDropdownItem href="javascript:;">
+
+              <a
+                (click)="exportAsPdf()"
+                [class.disabled]="isLoading()"
+                id="export-pdf"
+                class="dropdown-item"
+                ngbDropdownItem
+              >
                 <img
                   class="avatar avatar-xss avatar-4x3 me-2"
                   src="/assets/svg/brands/pdf-icon.svg"
-                  alt="Image Description"
+                  alt="PDF Icon"
                 />
                 PDF
               </a>
             </div>
+
           </div>
 
           <!-- Filter Dropdown -->
-          <div class="dropdown" ngbDropdown #dropFilter="ngbDropdown">
+          <!-- Inside the filter dropdown form -->
+          <div class="dropdown  " ngbDropdown #filterDropdown="ngbDropdown">
             <button
-              class="btn btn-white btn-sm w-100 dropdown-toggle"
+              class="btn btn-outline-primary btn-sm w-100 dropdown-toggle"
               ngbDropdownAnchor
-              (focus)="dropFilter.open()"
-              role="button"
-              id="usersFilterDropdown"
+              (focus)="filterDropdown.open()"
+              id="filterDropdownButton"
               aria-expanded="false"
             >
-              <i class="bi-filter me-1"></i> Filter
-              <span class="badge bg-soft-dark text-dark rounded-circle ms-1">2</span>
+              <i class="bi-funnel me-2"></i> Filter Patients
             </button>
+
             <div
-              class="dropdown-menu dropdown-menu-sm-end"
+              class="dropdown-menu w-100 p-3"
+              style="max-width: 100%; min-width: 300px;"
               ngbDropdownMenu
-              aria-labelledby="usersFilterDropdown"
-              style="min-width: 22rem;"
+              aria-labelledby="filterDropdownButton"
             >
-              <div class="card">
-                <div class="card-header card-header-content-between">
-                  <h5 class="card-header-title">Filter users</h5>
-                  <button type="button" class="btn btn-ghost-secondary btn-icon btn-sm ms-2">
-                    <i class="bi-x-lg"></i>
+              <form #filterForm="ngForm" (ngSubmit)="applyFilters()">
+                <span class="dropdown-header text-uppercase mb-2 text-muted small">Date Range</span>
+                <div class="row mb-3">
+                  <div class="col-sm-6 mb-2">
+                    <label for="startDate" class="form-label">Start Date</label>
+                    <input
+                      type="date"
+                      class="form-control form-control-sm"
+                      id="startDate"
+                      name="startDate"
+                      [(ngModel)]="filters.startDate"
+                    />
+                  </div>
+                  <div class="col-sm-6 mb-2">
+                    <label for="endDate" class="form-label">End Date</label>
+                    <input
+                      type="date"
+                      class="form-control form-control-sm"
+                      id="endDate"
+                      name="endDate"
+                      [(ngModel)]="filters.endDate"
+                    />
+                  </div>
+                </div>
+
+                <!-- Add other filters here if needed -->
+                <!-- Example: Role, Status, Location, etc. -->
+
+                <div class="d-grid mt-3">
+                  <button type="submit" class="btn btn-primary btn-sm">
+                    <i class="bi-funnel-fill me-1"></i> Apply Filters
                   </button>
                 </div>
-                <div class="card-body">
-                  <form>
-                    <div class="mb-4">
-                      <small class="text-cap text-body">Role</small>
-                      <div class="row">
-                        <div class="col">
-                          <div class="form-check">
-                            <input
-                              class="form-check-input"
-                              type="checkbox"
-                              value=""
-                              id="usersFilterCheckAll"
-                              checked
-                            />
-                            <label class="form-check-label" for="usersFilterCheckAll">All</label>
-                          </div>
-                        </div>
-                        <div class="col">
-                          <div class="form-check">
-                            <input
-                              class="form-check-input"
-                              type="checkbox"
-                              value=""
-                              id="usersFilterCheckEmployee"
-                            />
-                            <label class="form-check-label" for="usersFilterCheckEmployee">Employee</label>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="row">
-                      <div class="col-sm mb-4">
-                        <small class="text-cap text-body">Position</small>
-                        <div class="tom-select-custom">
-                          <select
-                            class="js-select js-datatable-filter form-select form-select-sm"
-                            data-target-column-index="2"
-                            data-hs-tom-select-options='{
-                                "placeholder": "Any",
-                                "searchInDropdown": false,
-                                "hideSearch": true,
-                                "dropdownWidth": "10rem"
-                              }'
-                          >
-                            <option value="">Any</option>
-                            <option value="Accountant">Accountant</option>
-                            <option value="Co-founder">Co-founder</option>
-                            <option value="Designer">Designer</option>
-                            <option value="Developer">Developer</option>
-                            <option value="Director">Director</option>
-                          </select>
-                        </div>
-                      </div>
-                      <div class="col-sm mb-4">
-                        <small class="text-cap text-body">Status</small>
-                        <div class="tom-select-custom">
-                          <select
-                            class="js-select js-datatable-filter form-select form-select-sm"
-                            data-target-column-index="4"
-                            data-hs-tom-select-options='{
-                                "placeholder": "Any status",
-                                "searchInDropdown": false,
-                                "hideSearch": true,
-                                "dropdownWidth": "10rem"
-                              }'
-                          >
-                            <option value="">Any status</option>
-                            <option
-                              value="Completed"
-                              data-option-template='<span class="d-flex align-items-center"><span class="legend-indicator bg-success"></span>Completed</span>'
-                            >
-                              Completed
-                            </option>
-                            <option
-                              value="In progress"
-                              data-option-template='<span class="d-flex align-items-center"><span class="legend-indicator bg-warning"></span>In progress</span>'
-                            >
-                              In progress
-                            </option>
-                            <option
-                              value="To do"
-                              data-option-template='<span class="d-flex align-items-center"><span class="legend-indicator bg-danger"></span>To do</span>'
-                            >
-                              To do
-                            </option>
-                          </select>
-                        </div>
-                      </div>
-                      <div class="col-12 mb-4">
-                        <span class="text-cap text-body">Location</span>
-                        <div class="tom-select-custom">
-                          <select class="js-select form-select">
-                            <option
-                              value="GB"
-                              selected
-                              data-option-template='<span class="d-flex align-items-center"><img class="avatar avatar-xss avatar-circle me-2" src="/assets/flags/gb.svg" alt="United Kingdom Flag" /><span class="text-truncate">United Kingdom</span></span>'
-                            >
-                              United Kingdom
-                            </option>
-                            <option
-                              value="US"
-                              data-option-template='<span class="d-flex align-items-center"><img class="avatar avatar-xss avatar-circle me-2" src="/assets/flags/us.svg" alt="United States Flag" /><span class="text-truncate">United States</span></span>'
-                            >
-                              United States
-                            </option>
-                          </select>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="d-grid">
-                      <a class="btn btn-primary" href="javascript:;">Apply</a>
-                    </div>
-                  </form>
-                </div>
-              </div>
+              </form>
             </div>
           </div>
+
           <!-- End Filter Dropdown -->
         </div>
       </div>

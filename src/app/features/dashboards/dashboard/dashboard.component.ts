@@ -4,13 +4,17 @@ import { BookingService, Patient } from '../../../services/booking.service';
 import { catchError, tap } from 'rxjs/operators';
 import { DashboardListItemComponent } from '../dashboard-list-item/dashboard-list-item.component';
 import { AsyncPipe } from '@angular/common';
+import {DashboardCountComponent} from './dashboard-count/dashboard-count.component';
+import {PieChartComponent} from '../pie-chart/pie-chart.component';
 
 @Component({
   selector: 'app-dashboard',
   standalone: true,
   imports: [
     DashboardListItemComponent,
-    AsyncPipe
+    AsyncPipe,
+    DashboardCountComponent,
+    PieChartComponent
   ],
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.scss']

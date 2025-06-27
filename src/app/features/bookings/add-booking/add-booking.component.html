@@ -1,124 +1,128 @@
-<main id="content" role="main" class="min-h-screen bg-gray-50 py-10">
-  <div class="container mx-auto px-6 max-w-4xl">
-    <div class="mb-8 text-center">
+<main  id="content"  role="main" class="main ">
+  <div class="container   ">
+    <div class="py-4 ">
       <h2 class="text-4xl font-bold text-gray-900">Book an Appointment</h2>
       <p class="text-gray-600 mt-3 text-lg">Schedule your visit with our expert medical team</p>
     </div>
+    <div class="d-flex row align-items-center  justify-content-center"></div>
+    <div class="col-lg-9">
+      <form #bookingForm="ngForm" (ngSubmit)="onSubmit()" class="py-5 px-0">
 
-    <form #bookingForm="ngForm" (ngSubmit)="onSubmit()" class="space-y-8">
+        <!-- Patient Information Card -->
+        <div class="bg-white shadow-xl rounded-xl p-3">
+          <h3 class="text-2xl font-semibold text-gray-800 mb-6 mx-5">Patient Information</h3>
+          <div class="grid grid-cols-1 md:grid-cols-2  gap-6">
+            <!-- Full Name -->
+            <mat-form-field appearance="outline" class="w-full mx-5">
+              <mat-label>Full Name</mat-label>
+              <input matInput name="name" [(ngModel)]="patient.name" required #nameInput="ngModel">
+              <mat-error *ngIf="nameInput.invalid && nameInput.touched">Full name is required</mat-error>
+            </mat-form-field>
 
-      <!-- Patient Information Card -->
-      <div class="bg-white shadow-xl rounded-xl p-8">
-        <h3 class="text-2xl font-semibold text-gray-800 mb-6">Patient Information</h3>
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-          <!-- Full Name -->
-          <mat-form-field appearance="outline" class="w-full">
-            <mat-label>Full Name</mat-label>
-            <input matInput name="name" [(ngModel)]="patient.name" required #nameInput="ngModel">
-            <mat-error *ngIf="nameInput.invalid && nameInput.touched">Full name is required</mat-error>
-          </mat-form-field>
+            <!-- Email -->
+            <mat-form-field appearance="outline" class="w-full mx-5">
+              <mat-label>Email</mat-label>
+              <input matInput type="email" name="email" [(ngModel)]="patient.email" required email #emailInput="ngModel">
+              <mat-error *ngIf="emailInput.invalid && emailInput.touched">Valid email is required</mat-error>
+            </mat-form-field>
 
-          <!-- Email -->
-          <mat-form-field appearance="outline" class="w-full">
-            <mat-label>Email</mat-label>
-            <input matInput type="email" name="email" [(ngModel)]="patient.email" required email #emailInput="ngModel">
-            <mat-error *ngIf="emailInput.invalid && emailInput.touched">Valid email is required</mat-error>
-          </mat-form-field>
+            <!-- Phone -->
+            <mat-form-field appearance="outline" class="w-full mx-5">
+              <mat-label>Phone Number</mat-label>
+              <input matInput type="tel" name="phone" [(ngModel)]="patient.phone" required pattern="[0-9]{10,}" #phoneInput="ngModel">
+              <mat-error *ngIf="phoneInput.invalid && phoneInput.touched">Valid phone number is required</mat-error>
+            </mat-form-field>
 
-          <!-- Phone -->
-          <mat-form-field appearance="outline" class="w-full">
-            <mat-label>Phone Number</mat-label>
-            <input matInput type="tel" name="phone" [(ngModel)]="patient.phone" required pattern="[0-9]{10,}" #phoneInput="ngModel">
-            <mat-error *ngIf="phoneInput.invalid && phoneInput.touched">Valid phone number is required</mat-error>
-          </mat-form-field>
-
-          <!-- Date of Birth -->
-          <mat-form-field appearance="outline" class="w-full">
-            <mat-label>Date of Birth</mat-label>
-            <input matInput [matDatepicker]="dobPicker" name="dob" [(ngModel)]="patient.dob" required #dobInput="ngModel">
-            <mat-datepicker-toggle matSuffix [for]="dobPicker"></mat-datepicker-toggle>
-            <mat-datepicker #dobPicker></mat-datepicker>
-            <mat-error *ngIf="dobInput.invalid && dobInput.touched">Date of birth is required</mat-error>
-          </mat-form-field>
-        </div>
-      </div>
-
-      <!-- Department and Doctor Selection Card -->
-      <div class="bg-white shadow-xl rounded-xl p-8">
-        <h3 class="text-2xl font-semibold text-gray-800 mb-6">Department & Doctor</h3>
-        <app-department-selector
-          [(selectedDepartmentId)]="patient.departmentId"
-          [(selectedDoctorName)]="patient.doctorName"
-          (selectionChange)="onDepartmentChange()"
-          (doctorChange)="onDoctorChange()">
-        </app-department-selector>
-      </div>
-
-
-      <!-- Appointment Details Card -->
-      <div class="bg-white shadow-xl rounded-xl p-8">
-        <h3 class="text-2xl font-semibold text-gray-800 mb-6">Appointment Details</h3>
-        <div class="space-y-6">
-          <!-- Appointment Type -->
-          <mat-form-field appearance="outline" class="w-full">
-            <mat-label>Appointment Type</mat-label>
-            <mat-select name="appointmentType" [(ngModel)]="patient.appointmentType" required #appointmentTypeInput="ngModel">
-              <mat-option value="Consultation">Consultation</mat-option>
-              <mat-option value="Follow-up">Follow-up</mat-option>
-              <mat-option value="Procedure">Procedure</mat-option>
-            </mat-select>
-            <mat-error *ngIf="appointmentTypeInput.invalid && appointmentTypeInput.touched">Appointment type is required</mat-error>
-          </mat-form-field>
-
-          <!-- Date Picker -->
-          <mat-form-field appearance="outline" class="w-full">
-            <mat-label>Appointment Date</mat-label>
-            <input matInput [matDatepicker]="appointmentDatePicker" [value]="selectedDate" (dateChange)="onDatePickerChange($event.value)">
-            <mat-datepicker-toggle matSuffix [for]="appointmentDatePicker"></mat-datepicker-toggle>
-            <mat-datepicker #appointmentDatePicker></mat-datepicker>
-          </mat-form-field>
-
-          <!-- Time Display -->
-          <div *ngIf="selectedDateTimeRange" class="text-blue-800 font-medium">
-            Selected Time: <strong>{{ getDateTimeRangeDisplay() }}</strong>
-          </div>
-
-          <!-- Error Message -->
-          <div *ngIf="bookingError" class="text-red-600 font-semibold">
-            {{ bookingError }}
-          </div>
-          <div *ngIf="bookingError" class="bg-red-100 border-l-4 border-red-500 text-red-700 p-4 rounded-lg">
-            {{ bookingError }}
-          </div>
-
-          <!-- Action Buttons -->
-          <div class="flex justify-end space-x-4 mt-8">
-            <button
-              mat-stroked-button
-              type="button"
-              (click)="resetForm()"
-              [disabled]="isLoading"
-              class="px-6 py-2 rounded-lg">
-              Reset
-            </button>
-
-            <button
-              mat-raised-button
-              color="primary"
-              type="submit"
-              [disabled]="isLoading || bookingForm.invalid || !selectedDateTimeRange || !patient.doctorName || !patient.departmentId || bookingError"
-              class="px-6 py-2 rounded-lg btn btn-primary">
-              <ng-container *ngIf="isLoading; else submitText">
-                Booking...
-              </ng-container>
-              <ng-template #submitText>Book Appointment</ng-template>
-            </button>
+            <!-- Date of Birth -->
+            <mat-form-field appearance="outline" class="w-full mx-5">
+              <mat-label>Date of Birth</mat-label>
+              <input matInput [matDatepicker]="dobPicker" name="dob" [(ngModel)]="patient.dob" required #dobInput="ngModel">
+              <mat-datepicker-toggle matSuffix [for]="dobPicker"></mat-datepicker-toggle>
+              <mat-datepicker #dobPicker></mat-datepicker>
+              <mat-error *ngIf="dobInput.invalid && dobInput.touched">Date of birth is required</mat-error>
+            </mat-form-field>
           </div>
         </div>
-      </div>
 
-      <!-- Global Error (if any) -->
+        <!-- Department and Doctor Selection Card -->
+        <div class="bg-white shadow-xl rounded-xl p-3">
+          <h3 class="text-2xl font-semibold text-gray-800 mx-5 mb-6">Department & Doctor</h3>
+          <app-department-selector
+            [(selectedDepartmentId)]="patient.departmentId"
+            [(selectedDoctorName)]="patient.doctorName"
+            (selectionChange)="onDepartmentChange()"
+            (doctorChange)="onDoctorChange()">
+          </app-department-selector>
+        </div>
 
-    </form>
+
+        <!-- Appointment Details Card -->
+        <div class="bg-white shadow-xl rounded-xl p-3">
+          <h3 class="text-2xl font-semibold text-gray-800 mb-3">Appointment Details</h3>
+          <div class="space-y-6">
+            <!-- Appointment Type -->
+            <mat-form-field appearance="outline" class="w-full mx-5">
+              <mat-label>Appointment Type</mat-label>
+              <mat-select name="appointmentType" [(ngModel)]="patient.appointmentType" required #appointmentTypeInput="ngModel">
+                <mat-option value="Consultation">Consultation</mat-option>
+                <mat-option value="Follow-up">Follow-up</mat-option>
+                <mat-option value="Procedure">Procedure</mat-option>
+              </mat-select>
+              <mat-error *ngIf="appointmentTypeInput.invalid && appointmentTypeInput.touched">Appointment type is required</mat-error>
+            </mat-form-field>
+
+            <!-- Date Picker -->
+            <mat-form-field appearance="outline" class="w-full">
+              <mat-label>Appointment Date</mat-label>
+              <input matInput [matDatepicker]="appointmentDatePicker" [value]="selectedDate" (dateChange)="onDatePickerChange($event.value)">
+              <mat-datepicker-toggle matSuffix [for]="appointmentDatePicker"></mat-datepicker-toggle>
+              <mat-datepicker #appointmentDatePicker></mat-datepicker>
+            </mat-form-field>
+
+            <!-- Time Display -->
+            <div *ngIf="selectedDateTimeRange" class="text-blue-800 font-medium">
+              Selected Time: <strong>{{ getDateTimeRangeDisplay() }}</strong>
+            </div>
+
+            <!-- Error Message -->
+            <div *ngIf="bookingError" class="text-red-600 font-semibold">
+              {{ bookingError }}
+            </div>
+            <div *ngIf="bookingError" class="bg-red-100 border-l-4 border-red-500 text-red-700 p-4 rounded-lg">
+              {{ bookingError }}
+            </div>
+
+            <!-- Action Buttons -->
+            <div class="flex justify-end space-x-4 mt-4">
+              <button
+                mat-stroked-button
+                type="button"
+                (click)="resetForm()"
+                [disabled]="isLoading"
+                class="px-6 py-2 rounded-lg">
+                Reset
+              </button>
+
+              <button
+                mat-raised-button
+                color="primary"
+                type="submit"
+                [disabled]="isLoading || bookingForm.invalid || !selectedDateTimeRange || !patient.doctorName || !patient.departmentId || bookingError"
+                class="px-6 py-2 rounded-lg btn btn-primary">
+                <ng-container *ngIf="isLoading; else submitText">
+                  Booking...
+                </ng-container>
+                <ng-template #submitText>Book Appointment</ng-template>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Global Error (if any) -->
+
+      </form>
+    </div>
+
+
   </div>
 </main>

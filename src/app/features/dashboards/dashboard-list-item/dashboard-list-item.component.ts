@@ -9,15 +9,15 @@ import {BookingService, Patient} from '../../../services/booking.service';
   standalone: true,
   imports: [NgForOf, NgIf, DatePipe, AsyncPipe],
   template: `
-    <div class="w-100 card rounded-1 px-2 pb-5">
-      <div class="d-flex justify-content-between flex-row align-items-center ps-4 mb-5">
+    <div class="    ">
+    <!--  <div class="d-flex justify-content-between flex-row align-items-center ps-4 mb-5">
         <div>
           <div class="h3 mt-5 text-dark">{{ listTitle }}</div>
           <div class="mt-1 text-dark">{{ listDescription }}</div>
         </div>
       </div>
-
-      <div class="d-flex flex-column justify-content-start align-items-start w-100 px-1"
+-->
+      <div class="d-flex flex-column py-2 justify-content-start align-items-start w-100 px-1"
            style="overflow-y: auto; max-height: 36.2rem">
         <ng-container *ngIf="isLoading; else patientList">
           <p>Loading patients...</p>
@@ -27,23 +27,37 @@ import {BookingService, Patient} from '../../../services/booking.service';
           <div class="d-flex flex-column align-self-stretch row-gap-3">
             <ng-container *ngIf="todayPatients$ | async as patients; else noPatients">
               <ng-container *ngIf="patients.length > 0; else noPatients">
-                <div *ngFor="let patient of patients; trackBy: trackById" class="list-tile p-3 border rounded">
-                  <div class="fw-bold">{{ patient.name }}</div>
-                  <div class="text-muted">
-                    Doctor: {{ patient.doctorName }} | Type: {{ patient.appointmentType }}
-                  </div>
-                  <div class="text-muted">
-                    Time:
-                    {{ patient.startTime ? (patient.startTime | date: 'shortTime') : 'N/A' }} -
-                    {{ patient.endTime ? (patient.endTime | date: 'shortTime') : 'N/A' }}
-                  </div>
-                  <div class="text-muted">
-                    Department ID: {{ patient.departmentId }}
-                  </div>
-                  <div class="text-muted">
-                    Last Updated: {{ patient.createdAt | date: 'mediumDate' }}
-                  </div>
-                </div>
+
+
+                    <div *ngFor="let patient of patients; trackBy: trackById" class="list-tile p-3 border rounded">
+                      <div class="d-flex row row-cols-2 align-items-center">
+                      <div class="col-lg-11">
+                      <div class="fw-bold">{{ patient.name }}</div>
+                      <div class="text-muted">
+                        Doctor: {{ patient.doctorName }} | Type: {{ patient.appointmentType }}
+                      </div>
+                      <div class="text-muted">
+                        Time:
+                        {{ patient.startTime ? (patient.startTime | date: 'shortTime') : 'N/A' }} -
+                        {{ patient.endTime ? (patient.endTime | date: 'shortTime') : 'N/A' }}
+                      </div>
+                        </div>
+                      <!--   <div class="text-muted">
+                           Department ID: {{ patient.departmentId }}
+                         </div>
+                         <div class="text-muted">
+                           Last Updated: {{ patient.createdAt | date: 'mediumDate' }}
+                         </div>-->
+                      <div class="col-lg-1">
+                        <div style="width: 20.33px; height: 18.33px; border-radius: 16.37px; background-color: green" ></div>
+                      </div>
+                      </div>
+                    </div>
+
+
+
+
+
               </ng-container>
             </ng-container>
 
@@ -82,6 +96,7 @@ export class DashboardListItemComponent implements OnInit {
   @Input() isLoading: boolean = true;
 
   todayPatients$: Observable<Patient[]>;
+  @Input() todayPatients!: any;
 
   constructor(private bookingService: BookingService) {
     this.todayPatients$ = this.bookingService.getPatientsForToday(this.doctorName);

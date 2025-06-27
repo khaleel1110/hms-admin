@@ -256,11 +256,11 @@ export class BookingService {
                     ? patient.createdAt.toDate()
                     : patient.createdAt || new Date(),
                 }))
-                .filter(patient => patient.startTime !== null) // Exclude patients with null startTime
+                .filter(patient => patient.startTime !== null)
                 .sort((a, b) => {
                   const timeA = a.startTime?.getTime() || 0;
                   const timeB = b.startTime?.getTime() || 0;
-                  return timeB - timeA; // Latest time first
+                  return timeB - timeA;
                 })
             ),
             catchError(err => {
@@ -273,6 +273,57 @@ export class BookingService {
         }
       });
     });
+  }
+
+  getTotalBookings(): Observable<number> {
+    return new Observable<number>(observer => {
+      onAuthStateChanged(this.auth, user => {
+        if (user) {
+          const patientsCollection = collection(this.firestore, 'patients');
+          from(getDocs(patientsCollection)).pipe(
+            map(snapshot => snapshot.docs.length),
+            catchError(err => {
+              console.error('Error fetching total bookings:', err);
+              return of(0);
+            })
+          ).subscribe(count => observer.next(count));
+        } else {
+          observer.error(new Error('User not authenticated'));
+        }
+      });
+    });
+  }
+
+  getTodayBookingCount(): Observable<number> {
+    return this.getPatientsForToday().pipe(
+      map(patients => patients.length),
+      catchError(err => {
+        console.error('Error fetching today’s booking count:', err);
+        return of(0);
+      })
+    );
+  }
+
+  getDepartmentCount(): Observable<number> {
+    return this.departments$.pipe(
+      map(departments => departments.length),
+      catchError(err => {
+        console.error('Error fetching department count:', err);
+        return of(0);
+      })
+    );
+  }
+
+  getDoctorCount(): Observable<number> {
+    return this.departments$.pipe(
+      map(departments =>
+        departments.reduce((total, dept) => total + (dept.doctors ? dept.doctors.length : 0), 0)
+      ),
+      catchError(err => {
+        console.error('Error fetching doctor count:', err);
+        return of(0);
+      })
+    );
   }
 
   private generateId(prefix: string): string {

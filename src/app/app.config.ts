@@ -10,6 +10,7 @@ import { provideFirestore, getFirestore, initializeFirestore, persistentLocalCac
 import { environment } from '../environments/environment'; // Ensure path is correct
 import { provideHttpClient } from '@angular/common/http';
 import {provideNativeDateAdapter} from '@angular/material/core';
+import {provideCharts, withDefaultRegisterables} from 'ng2-charts';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -17,6 +18,7 @@ export const appConfig: ApplicationConfig = {
     provideNativeDateAdapter(), // Added to fix DateAdapter error
     provideZoneChangeDetection({ eventCoalescing: true }),
     provideRouter(routes, withComponentInputBinding()),
+    provideCharts(withDefaultRegisterables()),
     provideHttpClient(),
     // Firebase App Initialization
     provideFirebaseApp(() => initializeApp(environment.firebaseApp)), // Use environment.firebase, not firebaseApp
