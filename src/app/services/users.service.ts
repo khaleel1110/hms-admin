@@ -4,6 +4,7 @@ import { BehaviorSubject, map, Observable, Subscription } from 'rxjs';
 import { Timestamp } from 'firebase/firestore';
 
 export interface AppointmentDetails {
+  name: any;
   id: string;
   patientName: string;
   email: string;
@@ -33,7 +34,7 @@ export class UsersService implements OnDestroy {
   users$ = this.usersSubject.asObservable();
 
   constructor() {
-    const bookingsCollection = collection(this.firestore, 'bookings');
+    const bookingsCollection = collection(this.firestore, 'patients');
 
     this.unsub = collectionData(bookingsCollection, { idField: 'id' })
       .pipe(
